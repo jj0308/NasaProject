@@ -8,22 +8,15 @@ mongoose.connection.once("open", () => {
 });
 
 mongoose.connection.on("error", (err) => {
-  console.log(err);
+  console.error(err);
 });
 
 async function mongoConnect() {
-  try {
-    await mongoose.connect(MONGO_URL);
-    console.log("Connected to MongoDB successfully!");
-  } catch (err) {
-    console.error("Error occurred while connecting to MongoDB:", err);
-    throw err;
-  }
+  await mongoose.connect(MONGO_URL);
 }
 
 async function mongoDisconnect() {
   await mongoose.disconnect();
-  console.log("Disconnected from MongoDB!");
 }
 
 module.exports = {
