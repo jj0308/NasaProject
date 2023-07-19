@@ -6,9 +6,6 @@ on:
     branches: [master]
 jobs:
   build:
-    env:
-      CI: true
-      MONGO_URL: mongodb://localhost/nasa-project
     strategy:
       matrix:
         node-version: [16.x]
@@ -26,4 +23,8 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
       - run: npm run build --prefix client
-      - run: npm test
+      - name: Run tests
+        run: npm test
+        env:
+          CI: true
+          MONGO_URL: mongodb://localhost/nasa-project
